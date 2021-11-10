@@ -1,0 +1,16 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}{}%
+\contentsline {chapter}{\numberline {2}Preliminaries}{4}{}%
+\contentsline {section}{\numberline {2.1}Botnets}{4}{}%
+\contentsline {section}{\numberline {2.2}Domain Generated Algorithm}{5}{}%
+\contentsline {section}{\numberline {2.3}Machine Learning}{6}{}%
+\contentsline {subsection}{\numberline {2.3.1}Neural Networks}{6}{}%
+\contentsline {subsection}{\numberline {2.3.2}Activation Functions}{6}{}%
+\contentsline {subsection}{\numberline {2.3.3}Recurrent Neural Networks}{6}{}%
+\contentsline {subsection}{\numberline {2.3.4}Vanishing Gradient problem}{7}{}%
+\contentsline {subsection}{\numberline {2.3.5}LTSM}{7}{}%
+\contentsline {subsection}{\numberline {2.3.6}The core of LTSM}{7}{}%
+\contentsline {subsection}{\numberline {2.3.7}Transformers}{7}{}%
+\contentsline {chapter}{\numberline {3}Research}{8}{}%
+\contentsline {chapter}{\numberline {4}Related Work}{9}{}%
+\contentsline {chapter}{\numberline {5}Conclusions}{10}{}%
+\contentsline {chapter}{\numberline {A}Appendix}{12}{}%

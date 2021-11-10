@@ -1,2 +1,3 @@
-# BachelorThesis
-My Bachelor Thesis on Radboud University Nijmegen about Detecting DGA Domains
+# Bachelor Thesis
+
+My Bachelor Thesis for my study Computer Science. This thesis will find out how to detect DGA Domains using artificial intelligence.
