@@ -5,7 +5,8 @@
 % as you have, but not necessarily the same specialization, minor, or free
 % electives.
 This section will describe malware, the different types and how it utilizes DGA
-perform malicious act. Malware is a blending of two words, malicious and
+perform malicious act. It will also explain the basics of Machine Learning and the types of Neural Networks that are necessary for this research paper to comprehend. \\\\ 
+Malware is a blending of two words, malicious and
 software, where it clearly defines the functionality of it, namely a software
 that is malicious in nature. Malware can have multiple purposes. Cybercriminals
 typically use it to extract data from the victims computer to leverage against
@@ -46,10 +47,11 @@ The domain name can also be generated, then the bot dynamically contacts the C \
 \section{Machine Learning}
 Machine learning has recently been an attractive tool to be used in security. One way to combat DGA is to use machine learning to find the structure of the generated domains. The machine learning methods can be either supervised or unsupervised. Unsupervised learning uses algorithms to analyze and cluster data, in this case the domains. These algorithms discover hidden patterns or data groupings, without a need for a human intervention. There are three ways to approach unsupervised learning: clustering, association and dimensionality reduction. The domains are divided into clusters to find statistical attributes for each group. To produce a cluster with good generalization capabilities, it can take a lot of time and  effort \cite{unsupervised}. Supervised learning does not rely on the statistical attributes  for each group to find DGAs. Supervised learning attempts to understand and classify the input and predict the outcome accurately. The relationship is represented as a structure to predict the outputs for some specific future inputs.  
 \subsection{Neural Networks}
-Neural Networks, also 
+Artificial Neural Networks are artificial systems that were inspired by the biological counterpart. The systems learn in a supervised manner to perform tasks by using various datasets and examples. These neural networks are composed of node layers, containing one or more input layers, hidden layers and output layers. Each node is connected to another node and has an associated weight w and threshold. When the threshold of a specific node is above a certain threshold value, then that node is activated, otherwise no data is passed along to the next layer of the network. \\\\ 
+The network uses training data to learn and improve the accuracy of the network. This is usually done by backpropagation. Backpropagation is a supervised learning algorithm that computes the difference between the model output and the actual output using gradient descent\cite{gradient_descent}. It checks if the error is minimized and update the weights and biases accordingly. It repeats the process until the error becomes minimum.  
 
 \subsection{Activation Functions}
-
+The activation functions in a neural network are functions that de
 
 \subsection{Recurrent Neural Networks}
 Recurrent neural networks are a type of neural network that uses the output from the previous step and fed that as input in the current step, while in traditional Neural networks the network assumes that the inputs and outputs are independent of each other. It is known for its feedback loops. Recurrent Neural Networks are used for Sequence Modeling. Sequence Modeling is the task to predict about future outcomes. 

@@ -7,4 +7,10 @@ S.~Krishnan, F.~Monrose, and J.~Mchugh.
 \newblock {\em 43 Annual IEEE/IFIP International Conference on Dependable
   Systems and Networks}, pages 1--12, 2013.
 
+\bibitem{gradient_descent}
+Claude Lemarechal.
+\newblock {\em Cauchy and the Gradient Method}, 2010.
+\newblock
+  \url{https://www.math.uni-bielefeld.de/documenta/vol-ismp/40_lemarechal-claude.pdf}.
+
 \end{thebibliography}
