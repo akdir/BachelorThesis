@@ -51,7 +51,20 @@ Artificial Neural Networks are artificial systems that were inspired by the biol
 The network uses training data to learn and improve the accuracy of the network. This is usually done by backpropagation. Backpropagation is a supervised learning algorithm that computes the difference between the model output and the actual output using gradient descent\cite{gradient_descent}. It checks if the error is minimized and update the weights and biases accordingly. It repeats the process until the error becomes minimum.  
 
 \subsection{Activation Functions}
-The activation functions in a neural network are functions that de
+The activation functions in a neural network are functions that determine the output of a neural network. It maps it to a specific value. The function receives the calculated weighted sum of the inputs and the added bias and then decides if this passes through or not. \\\\
+There are two types of activation functions: Linear Activation function and Non-linear Activation Functions.
+The linear activation functions are functions that does not change the weighted sum of the input, but instead returns the value directly. For multiple layer networks we need non-linear activation function.
+
+\subsubsection{ReLU}
+ReLU, or Rectified Linear Unit, is linear when the input is positive and 0 when the input is negative. The range of ReLu is [0, inf). The benefit of ReLu is that there is a reduced likelihood of the gradient to vanish(see subsection Vanish Gradient Problem), as the gradient is constant. THis constant gradient results in faster learning of the network. Another benefit is the sparsity, as the network has more units in a layer, other activation functions will be processed to describe the output of that network. When the calculated sum that goes into the activation of ReLu is negative, it yields 0. This means there is fewer neurons firing, which makes the network lighter.\\\\
+The disadvantage is that it tends to blow up, as the range goes to infinity and there is no mechanism to constrain the output when it is positive. Another disadvantage is the problem that if too many activations in the network get below zero, than the neurons in the network will output zero. This means that the outputs die out, thus prohibiting learning. This is called the Dying ReLu problem.
+
+\includegraphics{relu}
+
+
+\subsubsection{Sigmoid}
+Sigmoid 
+
 
 \subsection{Recurrent Neural Networks}
 Recurrent neural networks are a type of neural network that uses the output from the previous step and fed that as input in the current step, while in traditional Neural networks the network assumes that the inputs and outputs are independent of each other. It is known for its feedback loops. Recurrent Neural Networks are used for Sequence Modeling. Sequence Modeling is the task to predict about future outcomes. 
