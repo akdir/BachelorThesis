@@ -63,8 +63,14 @@ The disadvantage is that it tends to blow up, as the range goes to infinity and 
 
 
 \subsubsection{Sigmoid}
-Sigmoid 
+Sigmoid activation function is a non-linear activation function that looks like an S-shape. Any small changes in the incoming X value(the calculated sum) will cause the Y value (the output) to change significantly. The range is [0,1], so it is bounded in a range and it does not blow up. The disadvantage of the Sigmoid function is the vanishing gradients(see subsection Vanishing Gradient Problem)
 
+\includegraphics{sigmoid_function}
+
+\subsubsection{Tanh}
+The Tanh activation function is very similar to the Sigmoid function. The difference is that the range is ]-1,1] and the gradient is stronger for tanh than sigmoid. That means the derivative are steeper. One benefit of tanh over sigmoid is that it avoids bias in the gradients \cite{tanh}.
+
+\includegraphics{tanh_function}
 
 \subsection{Recurrent Neural Networks}
 Recurrent neural networks are a type of neural network that uses the output from the previous step and fed that as input in the current step, while in traditional Neural networks the network assumes that the inputs and outputs are independent of each other. It is known for its feedback loops. Recurrent Neural Networks are used for Sequence Modeling. Sequence Modeling is the task to predict about future outcomes. 
