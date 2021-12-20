@@ -7,7 +7,28 @@
 %%  references. Consult http://www.bibtex.org/ for more information.
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-@article{unsupervised,
+@misc{peys04:HowToWriteAGoodResearchPaper,
+  author = {{Peyton Jones}, Simon},
+  title  = {How to write a good research paper},
+  date   = {october},
+  year   = 2004,
+  note   = {Presentation at Technical University of Vienna, \url{http://research.microsoft.com/en-us/um/people/simonpj/papers/giving-a-talk/writing-a-paper-slides.pdf}}
+}
+@manual{Gradient_Descent,
+  author = {Claude Lemarechal},
+  title  = {Cauchy and the Gradient Method},
+  year   = {2010},
+  note   = {\url{https://www.math.uni-bielefeld.de/documenta/vol-ismp/40_lemarechal-claude.pdf}}
+}
+@article{Tan_h,
+  author    = {Yann LeCun, Leon Bottou and Genevieve B. Orr and Klaus-Robert Müller},
+  title     = {Efficient BackProp},
+  journal   = {Image Processing Research Department AT\&T Labs},
+  year      = {1998},
+  pages     = {1-12},
+  publisher = {Willamette University}
+}
+@article{Unsupervised,
   author    = {Krishnan, S. and Monrose, F. and Mchugh, J.},
   title     = {Crossing the threshold: Detecting network malfeasance via sequential hypothesis testing},
   journal   = {43 Annual IEEE/IFIP International Conference on Dependable Systems and Networks},
@@ -15,129 +36,36 @@
   pages     = {1-12},
   publisher = {DSN}
 }
-
-@techreport{aalw02:WorkflowPatterns,
-  author      = {{\noopsort{Aalst}{van der Aalst}}, Wil and {\noopsort{Hofstede}{ter Hofstede}}, Arthur and Kiepuszewski, Bartek and Barros, Ana},
-  title       = {Workflow patterns},
-  institution = {Queensland University of Technology},
-  year        = 2002,
-  number      = {FIT-TR-2002-02}
+@article{DBLP:journals/corr/HeZRS15,
+  author     = {Kaiming He and
+                Xiangyu Zhang and
+                Shaoqing Ren and
+                Jian Sun},
+  title      = {Deep Residual Learning for Image Recognition},
+  journal    = {CoRR},
+  volume     = {abs/1512.03385},
+  year       = {2015},
+  url        = {http://arxiv.org/abs/1512.03385},
+  eprinttype = {arXiv},
+  eprint     = {1512.03385},
+  timestamp  = {Wed, 17 Apr 2019 17:23:45 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/HeZRS15.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
-@incollection{abrs90:lazyLambdaCalculus,
-  author    = {Abramsky, Samson},
-  title     = {The lazy lambda calculus},
-  booktitle = {Research Topics in Functional Programming},
-  publisher = {Addison-Wesley},
-  address   = {Reading, MA, USA},
-  editor    = {Turner, David},
-  isbn      = {0-201-17236-4},
-  pages     = {65--116},
-  year      = 1990,
-  url       = {\texttt{http:\-//\-citeseer.nj.nec.com\-/abramsky90lazy.html}}
-}
-@article{tanh,
-  author    = {Yann LeCun, Leon Bottou, Genevieve B. Orr, Klaus-Robert Müller},
-  title     = {Efficient BackProp},
-  journal   = {Image Processing Research Department AT&T Labs},
-  year      = {1998},
-  pages     = {1-12},
-  publisher = {Willamette University}
-}
-@inproceedings{agoa00:ImprovingFlexibilityOfWFMs_BPM00,
-  author    = {Agostini, Alessandra and {\noopsort{Michelis}{De Michelis}}, Giorgio},
-  title     = {Improving flexibility of workflow management systems},
-  booktitle = {Business Process Management},
-  editor    = {{\noopsort{Aalst}{van der Aalst}}, Wil},
-  publisher = {Springer-Verlag},
-  series    = LNCS,
-  volume    = {1806},
-  pages     = {218-234},
-  year      = 2000
-}
-@book{baej90:ProcessAlgebra,
-  author    = {Baeten, Jos and Weijland, Peter},
-  title     = {Process algebra},
-  publisher = {Cambridge University Press},
-  series    = {Cambridge Tracts in Theoretical Computer Science},
-  volume    = {18},
-  year      = 1990
-}
-@book{bare84:LambdaCalculusBook,
-  author    = {Barendregt, Henk},
-  title     = {The lambda calculus, its syntax and semantics (revised edition)},
-  publisher = {North-Holland},
-  series    = {Studies in Logic},
-  volume    = {103},
-  year      = 1984
-}
-@techreport{brod01:generating,
-  author      = {Broda, Sabine and Damas, Luís},
-  title       = {Generating normal inhabitants of types with a common structure},
-  number      = {DCC-2001-1},
-  institution = {DCC-FC \& LIACC, Universidade do Porto, Portugal},
-  year        = 2001
-}
-@unpublished{Chak03:HaskellFFI,
-  author = {Chakravarty, Manuel},
-  title  = {The {Haskell} 98 {Foreign Function Interface} 1.0, an addendum to the {Haskell} 98 Report},
-  year   = {2003},
-  note   = {\url{http://www.cse.unsw.edu.au/~chak/haskell/ffi}}
-}
-@manual{gradient_descent,
-  author = {Claude Lemarechal},
-  title  = {Cauchy and the Gradient Method},
-  year   = 2010,
-  note   = {\url{https://www.math.uni-bielefeld.de/documenta/vol-ismp/40_lemarechal-claude.pdf}}
-}
-@proceedings{DBLP:conf/fp/1995,
-  editor       = {Turner, David},
-  title        = {Functional programming,},
-  organization = {Glasgow, UK},
-  booktitle    = {Functional Programming},
-  publisher    = {Springer-Verlag},
-  series       = {Workshops in Computing 1995},
-  year         = 1996,
-  isbn         = {3-540-14580-X},
-  bibsource    = {DBLP, \texttt{http:\-//\-dblp.uni-trier.de}}
-}
-@phdthesis{hinr02:proofgeneric,
-  author = {Hinze, Ralf},
-  title  = {Generic programs and proofs},
-  school = {Universit\"at Bonn},
-  year   = 2000,
-  note   = {Habilitationsschrift}
-}
-@book{hoac85:CSP,
-  author    = {Hoare, Charles},
-  title     = {Communicating sequential processes},
-  series    = {International Series in Computer Science},
-  publisher = {Prentice-Hall International},
-  year      = 1985
-}
-@conference{hofm11:symmetricLenses,
-  author    = {Martin Hofmann and Benjamin C. Pierce and Daniel Wagner},
-  booktitle = {Proceedings of the 38th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages, POPL 2011, Austin, TX, USA},
-  editor    = {Thomas Ball and Mooly Sagiv},
-  isbn      = {978-1-4503-0490-0},
-  pages     = {371-384},
-  publisher = {ACM},
-  title     = {{S}ymmetric lenses},
-  year      = {2011}
-}
-@misc{mcrl2:mCRL2toolset,
-  title        = {{mCRL2} toolset},
-  howpublished = {\texttt{http:\-//\-www.mcrl2.org/}}
-}
-@manual{milr97:SML,
-  author       = {Milner, Robert and Tofte, Mads and Harper, Robert and MacQueen, David},
-  title        = {The definition of {S}tandard {ML} (revised)},
-  organization = {MIT Press},
-  year         = 1997
-}
-@mastersthesis{Nayl04:Hackle,
-  author = {Naylor, Matthew},
-  title  = {Haskell to {Clean} translation},
-  school = {University of York},
-  year   = {2004},
-  note   = {\url{http://www-users.cs.york.ac.uk/~mfn/hacle/hacle.pdf}}
+@article{DBLP:journals/corr/abs-1810-04805,
+  author     = {Jacob Devlin and
+                Ming{-}Wei Chang and
+                Kenton Lee and
+                Kristina Toutanova},
+  title      = {{BERT:} Pre-training of Deep Bidirectional Transformers for Language
+                Understanding},
+  journal    = {CoRR},
+  volume     = {abs/1810.04805},
+  year       = {2018},
+  url        = {http://arxiv.org/abs/1810.04805},
+  eprinttype = {arXiv},
+  eprint     = {1810.04805},
+  timestamp  = {Tue, 30 Oct 2018 20:39:56 +0100},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-1810-04805.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }

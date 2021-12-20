@@ -1,16 +1,27 @@
 \begin{thebibliography}{1}
 
-\bibitem{unsupervised}
+\bibitem{DBLP:journals/corr/HeZRS15}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock {\em CoRR}, abs/1512.03385, 2015.
+
+\bibitem{Unsupervised}
 S.~Krishnan, F.~Monrose, and J.~Mchugh.
 \newblock Crossing the threshold: Detecting network malfeasance via sequential
   hypothesis testing.
 \newblock {\em 43 Annual IEEE/IFIP International Conference on Dependable
   Systems and Networks}, pages 1--12, 2013.
 
-\bibitem{gradient_descent}
+\bibitem{Gradient_Descent}
 Claude Lemarechal.
 \newblock {\em Cauchy and the Gradient Method}, 2010.
 \newblock
   \url{https://www.math.uni-bielefeld.de/documenta/vol-ismp/40_lemarechal-claude.pdf}.
+
+\bibitem{Tan_h}
+Leon~Bottou Yann~LeCun, Genevieve~B. Orr, and Klaus-Robert Müller.
+\newblock Efficient backprop.
+\newblock {\em Image Processing Research Department AT\&T Labs}, pages 1--12,
+  1998.
 
 \end{thebibliography}
