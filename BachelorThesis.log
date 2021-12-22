@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.11.27)  19 DEC 2021 23:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.11.27)  22 DEC 2021 15:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -667,7 +667,7 @@ LaTeX Info: Redefining \nameref on input line 28.
 \@outlinefile=\write5
 \openout5 = `BachelorThesis.out'.
 
-<imgs//logo.png, id=111, 354.3639pt x 421.575pt>
+<imgs//logo.png, id=107, 354.3639pt x 421.575pt>
 File: imgs//logo.png Graphic file (type png)
 <use imgs//logo.png>
 Package pdftex.def Info: imgs//logo.png  used on input line 32.
@@ -757,73 +757,98 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--24
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 26--27
-
- []
-
-<imgs//RNN.png, id=179, 702.625pt x 183.68625pt>
-File: imgs//RNN.png Graphic file (type png)
-<use imgs//RNN.png>
-Package pdftex.def Info: imgs//RNN.png  used on input line 28.
-(pdftex.def)             Requested size: 341.43306pt x 89.26147pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 31--34
+Underfull \hbox (badness 10000) in paragraph at lines 27--30
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 36--38
+Underfull \hbox (badness 10000) in paragraph at lines 32--34
 
  []
 
-[7 </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png>]
-<imgs//relu.png, id=190, 1029.8475pt x 468.75125pt>
+<imgs//relu.png, id=174, 1029.8475pt x 468.75125pt>
 File: imgs//relu.png Graphic file (type png)
 <use imgs//relu.png>
-Package pdftex.def Info: imgs//relu.png  used on input line 39.
+Package pdftex.def Info: imgs//relu.png  used on input line 35.
 (pdftex.def)             Requested size: 284.52756pt x 129.50423pt.
-<imgs//sigmoid_function.png, id=191, 803.0pt x 369.38pt>
+[7]
+<imgs//sigmoid_function.png, id=181, 803.0pt x 369.38pt>
 File: imgs//sigmoid_function.png Graphic file (type png)
 <use imgs//sigmoid_function.png>
-Package pdftex.def Info: imgs//sigmoid_function.png  used on input line 44.
+Package pdftex.def Info: imgs//sigmoid_function.png  used on input line 40.
 (pdftex.def)             Requested size: 284.52756pt x 130.88564pt.
- [8 </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//relu.png> </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//sigmoid_function.png>]
-<imgs//tanh_function.png, id=199, 770.88pt x 424.58624pt>
+<imgs//tanh_function.png, id=183, 770.88pt x 424.58624pt>
 File: imgs//tanh_function.png Graphic file (type png)
 <use imgs//tanh_function.png>
-Package pdftex.def Info: imgs//tanh_function.png  used on input line 49.
+Package pdftex.def Info: imgs//tanh_function.png  used on input line 45.
 (pdftex.def)             Requested size: 284.52756pt x 156.7122pt.
+ [8 </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//relu.png> </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//sigmoid_function.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 48--50
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--55
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--50
+
+ []
+
+<imgs//RNN.png, id=191, 702.625pt x 183.68625pt>
+File: imgs//RNN.png Graphic file (type png)
+<use imgs//RNN.png>
+Package pdftex.def Info: imgs//RNN.png  used on input line 51.
+(pdftex.def)             Requested size: 341.43306pt x 89.26147pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--57
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--55
+Underfull \hbox (badness 10000) in paragraph at lines 54--57
 
  []
 
-[9 </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//tanh_function.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 61--64
+[9 </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//tanh_function.png> </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
 
  []
 
+<imgs//LSTM.png, id=202, 788.9475pt x 480.79625pt>
+File: imgs//LSTM.png Graphic file (type png)
+<use imgs//LSTM.png>
+Package pdftex.def Info: imgs//LSTM.png  used on input line 61.
+(pdftex.def)             Requested size: 341.43306pt x 208.07356pt.
+[10]
 <imgs//BERT.png, id=208, 477.58424pt x 246.9225pt>
 File: imgs//BERT.png Graphic file (type png)
 <use imgs//BERT.png>
-Package pdftex.def Info: imgs//BERT.png  used on input line 67.
+Package pdftex.def Info: imgs//BERT.png  used on input line 68.
 (pdftex.def)             Requested size: 284.52756pt x 147.11096pt.
-) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/research.tex [10] [11 </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//BERT.png>]
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--71
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--71
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--71
+
+ []
+
+[11 </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//LSTM.png>]) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/research.tex [12 </home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//BERT.png>]
 Chapter 3.
-) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/relatedwork.tex [12
+) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/relatedwork.tex [13
 
 ]
 Chapter 4.
-) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/conclusions.tex [13
+) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/conclusions.tex [14
 
 ]
 Chapter 5.
-) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/BachelorThesis.bbl [14
+) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/BachelorThesis.bbl [15
 
 ]
 Underfull \hbox (badness 3364) in paragraph at lines 16--20
@@ -835,29 +860,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--20
 []$\OT1/cmtt/m/n/10.95 https : / / www . math . uni-[]bielefeld . de / documenta / vol-[]ismp / 40 _
  []
 
-) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/appendix.tex [15
+) (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/appendix.tex [16
 
 ]
 Appendix A.
-) [16
+) [17
 
 ] (/home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/BachelorThesis.aux)
 Package rerunfilecheck Info: File `BachelorThesis.out' has not changed.
-(rerunfilecheck)             Checksum: 98FB0D7313806FC58FC9E0895F918F2F;2378.
+(rerunfilecheck)             Checksum: AB66BCB5A475BB12AC84BF2F7DEBD9C7;2213.
  ) 
 Here is how much of TeX's memory you used:
- 24084 strings out of 478994
- 419992 string characters out of 5864750
- 757875 words of memory out of 5000000
- 41057 multiletter control sequences out of 15000+600000
+ 24096 strings out of 478994
+ 420086 string characters out of 5864750
+ 757878 words of memory out of 5000000
+ 41063 multiletter control sequences out of 15000+600000
  412955 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,5n,102p,3345b,349s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,5n,102p,3345b,354s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/BachelorThesis.pdf (18 pages, 944950 bytes).
+Output written on /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/BachelorThesis.pdf (19 pages, 960182 bytes).
 PDF statistics:
- 300 PDF objects out of 1000 (max. 8388607)
- 236 compressed objects within 3 object streams
- 43 named destinations out of 1000 (max. 500000)
- 299 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 309 PDF objects out of 1000 (max. 8388607)
+ 242 compressed objects within 3 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 296 words of extra memory for PDF output out of 10000 (max. 10000000)
 

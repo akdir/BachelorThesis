@@ -976,10 +976,6 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png
-INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png
-INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png
-INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//relu.png
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//relu.png
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//relu.png
@@ -992,6 +988,14 @@ INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_The
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//tanh_function.png
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//tanh_function.png
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//tanh_function.png
+INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png
+INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png
+INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png
+INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//RNN.png
+INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//LSTM.png
+INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//LSTM.png
+INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//LSTM.png
+INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//LSTM.png
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//BERT.png
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//BERT.png
 INPUT /home/akrim/Documents/School_Documenten/Bachelor/Bachelor_Thesis/LaTeX_ThesisEnglish/BachelorThesis/imgs//BERT.png
