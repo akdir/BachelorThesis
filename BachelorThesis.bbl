@@ -1,0 +1,182 @@
+\begin{thebibliography}{10}
+
+\bibitem{Anderson}
+Hyrum~S. Anderson, Jonathan Woodbridge, and Bobby Filar.
+\newblock Deepdga: Adversarially-tuned domain generation and detection.
+\newblock {\em CoRR}, abs/1610.01969, 2016.
+
+\bibitem{sts}
+{Andrew Ng - Stanford University}.
+\newblock Sequence to sequence model.
+\newblock \textsc{url:}~\url{https://cs230.stanford.edu/files/C5M3.pdf}.
+
+\bibitem{ColBERT}
+Issa Annamoradnejad.
+\newblock Colbert: Using {BERT} sentence embedding for humor detection.
+\newblock {\em CoRR}, abs/2004.12765, 2020.
+
+\bibitem{Antonakakis}
+Manos Antonakakis, Roberto Perdisci, Yacin Nadji, Nikolaos Vasiloglou, Saeed
+  Abu-Nimeh, Wenke Lee, and David Dagon.
+\newblock From throw-away traffic to bots: Detecting the rise of dga-based
+  malware.
+\newblock In {\em USENIX Security Symposium}, Security'12, page~24, USA, 2012.
+  USENIX Association.
+
+\bibitem{arntz_2016}
+Pieter Arntz.
+\newblock Explained: Domain generating algorithm, Dec 2016.
+
+\bibitem{avtest}
+AVTest.
+\newblock {Malware Statistics}.
+\newblock \url{https://www.av-test.org/en/statistics/malware/}, 2021.
+\newblock [Online; accessed 26-Dec-2021].
+
+\bibitem{sklearn_api}
+Lars Buitinck, Gilles Louppe, Mathieu Blondel, Fabian Pedregosa, Andreas
+  Mueller, Olivier Grisel, Vlad Niculae, Peter Prettenhofer, Alexandre
+  Gramfort, Jaques Grobler, Robert Layton, Jake VanderPlas, Arnaud Joly, Brian
+  Holt, and Ga{\"{e}}l Varoquaux.
+\newblock {API} design for machine learning software: experiences from the
+  scikit-learn project.
+\newblock In {\em ECML PKDD Workshop: Languages for Data Mining and Machine
+  Learning}, pages 108--122, 2013.
+
+\bibitem{Chang_Lin}
+{Chun De} Chang and {Hui Tang} Lin.
+\newblock On similarities of string and query sequence for dga botnet
+  detection.
+\newblock In {\em 32nd International Conference on Information Networking,
+  ICOIN 2018}, International Conference on Information Networking, pages
+  104--109, United States, April 2018. IEEE Computer Society.
+
+\bibitem{Chen}
+Yijing Chen, Bo~Pang, Guolin Shao, Guozhu Wen, and Xingshu Chen.
+\newblock Dga-based botnet detection toward imbalanced multiclass learning.
+\newblock {\em Tsinghua Science and Technology}, 26(4):387--402, 2021.
+
+\bibitem{chollet2015keras}
+Fran\c{c}ois Chollet et~al.
+\newblock Keras.
+\newblock \url{https://keras.io}, 2015.
+
+\bibitem{DBLP:journals/corr/abs-1810-04805}
+Jacob Devlin, Ming{-}Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock {BERT:} pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock {\em CoRR}, abs/1810.04805, 2018.
+
+\bibitem{DBLP:journals/corr/HeZRS15}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock {\em CoRR}, abs/1512.03385, 2015.
+
+\bibitem{Highnam}
+Kate Highnam, Domenic Puzio, Song Luo, and Nicholas~R. Jennings.
+\newblock Real-time detection of dictionary {DGA} network traffic using deep
+  learning.
+\newblock {\em CoRR}, abs/2003.12805, 2020.
+
+\bibitem{Koh}
+Joewie~J. Koh and Barton Rhodes.
+\newblock Inline detection of domain generation algorithms with
+  context-sensitive word embeddings.
+\newblock In {\em 2018 IEEE International Conference on Big Data (Big Data)},
+  pages 2966--2971, 2018.
+
+\bibitem{Unsupervised}
+S.~Krishnan, F.~Monrose, and J.~Mchugh.
+\newblock Crossing the threshold: Detecting network malfeasance via sequential
+  hypothesis testing.
+\newblock {\em 43 Annual IEEE/IFIP International Conference on Dependable
+  Systems and Networks}, pages 1--12, 2013.
+
+\bibitem{Gradient_Descent}
+Claude Lemarechal.
+\newblock {\em Cauchy and the Gradient Method}, 2010.
+\newblock
+  \url{https://www.math.uni-bielefeld.de/documenta/vol-ismp/40_lemarechal-claude.pdf}.
+
+\bibitem{Lison}
+Pierre Lison and Vasileios Mavroeidis.
+\newblock Automatic detection of malware-generated domains with recurrent
+  neural models.
+\newblock {\em CoRR}, abs/1709.07102, 2017.
+
+\bibitem{Dying_ReLU}
+Lu~Lu.
+\newblock Dying relu and initialization: Theory and numerical examples.
+\newblock {\em Communications in Computational Physics}, 28(5):1671–1706, Jun
+  2020.
+
+\bibitem{maiya2020ktrain}
+Arun~S. Maiya.
+\newblock ktrain: A low-code library for augmented machine learning.
+\newblock {\em arXiv preprint arXiv:2004.10703}, 2020.
+
+\bibitem{Tranco}
+Victor~Le Pochat, Tom van Goethem, and Wouter Joosen.
+\newblock Rigging research results by manipulating top websites rankings.
+\newblock {\em CoRR}, abs/1806.01156, 2018.
+
+\bibitem{Sanh2019DistilBERTAD}
+Victor Sanh, Lysandre Debut, Julien Chaumond, and Thomas Wolf.
+\newblock Distilbert, a distilled version of bert: smaller, faster, cheaper and
+  lighter.
+\newblock {\em ArXiv}, abs/1910.01108, 2019.
+
+\bibitem{ffn}
+Murat Sazli.
+\newblock A brief review of feed-forward neural networks.
+\newblock {\em Communications, Faculty Of Science, University of Ankara},
+  50:11--17, 01 2006.
+
+\bibitem{ist}
+Symantec.
+\newblock {Internet Security Threat Report Volume 24}.
+\newblock \url{https://docs.broadcom.com/doc/istr-24-2019-en}, 2019.
+\newblock [Online; accessed 26-Dec-2021].
+
+\bibitem{TRAN20182401}
+Duc Tran, Hieu Mac, Van Tong, Hai~Anh Tran, and Linh~Giang Nguyen.
+\newblock A lstm based framework for handling multiclass imbalance in dga
+  botnet detection.
+\newblock {\em Neurocomputing}, 275:2401--2413, 2018.
+
+\bibitem{Transformers}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, Lukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock {\em CoRR}, abs/1706.03762, 2017.
+
+\bibitem{Woodbridge}
+Jonathan Woodbridge, Hyrum~S. Anderson, Anjum Ahuja, and Daniel Grant.
+\newblock Predicting domain generation algorithms with long short-term memory
+  networks.
+\newblock {\em CoRR}, abs/1611.00791, 2016.
+
+\bibitem{Tan_h}
+Leon~Bottou Yann~LeCun, Genevieve~B. Orr, and Klaus-Robert Müller.
+\newblock Efficient backprop.
+\newblock {\em Image Processing Research Department AT\&T Labs}, pages 1--12,
+  1998.
+
+\bibitem{UMUDGA}
+Mattia Zago, Manuel Pérez, and Gregorio Martinez~Perez.
+\newblock Umudga: a dataset for profiling dga-based botnet.
+\newblock {\em Computers \& Security}, 92:101719, 05 2020.
+
+\bibitem{Zhou2013DGABasedBD}
+Yonglin Zhou, Qingshan Li, Qidi Miao, and Kangbin Yim.
+\newblock Dga-based botnet detection using dns traffic.
+\newblock {\em J. Internet Serv. Inf. Secur.}, 3:116--123, 2013.
+
+\bibitem{BooksCorpus}
+Yukun Zhu, Ryan Kiros, Richard~S. Zemel, Ruslan Salakhutdinov, Raquel Urtasun,
+  Antonio Torralba, and Sanja Fidler.
+\newblock Aligning books and movies: Towards story-like visual explanations by
+  watching movies and reading books.
+\newblock {\em CoRR}, abs/1506.06724, 2015.
+
+\end{thebibliography}

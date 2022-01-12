@@ -1,7 +1,62 @@
 \chapter{Research}\label{research}
-This chapter, or series of chapters, delves into all technical details that are
-required to \emph{prove} your scientific hypothesis.
-It should be sufficiently detailed and precise in order for any fellow computing scientist student to be able to \emph{repeat}
-your research and therewith establish the same results / conclusions that you have obtained.
-Please note that, in order to improve readability of your thesis, you can put a part of this information also in one or
-more appendices (see Appendix \ref{appendix}).
+% This chapter, or series of chapters, delves into all technical details that are
+% required to \emph{prove} your scientific hypothesis.
+% It should be sufficiently detailed and precise in order for any fellow computing scientist student to be able to \emph{repeat}
+% your research and therewith establish the same results / conclusions that you have obtained.
+% Please note that, in order to improve readability of your thesis, you can put a part of this information also in one or
+% more appendices (see Appendix \ref{appendix}).
+
+In this chapter we will explain about all the technical details of our DistilBERT model. First, we will justify which libraries and framework we used for our model. Second, we will showcase how we have implemented the libraries in python to create our model. Afterwards, we will analyze our data set, consisting of malicious domains and benign domains. Lastly, we will demonstrate the results of our model. The python code is accessible in \ref{appendix}.
+
+\section{System architecture}
+To build and train our DistilBERT model, we used the ktrain library \cite{maiya2020ktrain}. Ktrain is a lightweight open source wrapper for the deep learning library TensorFlow Keras \cite{chollet2015keras}. It helps to build, train and deploy neural networks in a more accessible and easier way. Ktrain allows you to easily estimate an optimal learning rate for your model given a learning rate finder.\\\\
+For data analysis on our data set we use the open source scikit-learn library \cite{sklearn_api}. It is a simple and efficient tool to predict and analyze data, built on NumPy, SciPy and matplotlib.
+
+\section{Datasets}
+This paper uses two open data sets to make the research reproducible. The Tranco 1 million domains \cite{Tranco} are used for benign, not DGA, domains. Tranco is a research-oriented top sites ranking data set, that is hardened against manipulation. Most researchers \cite{Antonakakis}\cite{Lison}\cite{Highnam}\cite{TRAN20182401} rely on popularity rankings such as the Alexa top 1 million domain list. However, the Tranco paper \cite{Tranco} finds out that it is trivial for an adversary to manipulate the composition of these lists. The list of Alexa top 1 million can be altered by as little as a single HTTP request by adversaries. Therefore, the Tranco paper comes up with a 1 million domain list that is hardened against these manipulations. This is the list we use for our DGA domain detector. We only use a fourth of the domains in the 1 million Tranco list, totalling $200000$ benign domains.\\\\
+For the DGA malicious domains, we use the UMUDGA data set \cite{UMUDGA}. UMUDGA is a dataset for profiling DGA-based botnet. It contains 40 notorious distinct malware variants generated domain lists. For our model, we have opted out for 5000 domain list per malware variant. Thus, we have $200000$ DGA domains. In total we have $400000$ domains in our dataset, with a ratio of 50/50 between benign and dga domains.
+
+\section{Detector}
+Our detector is predicting
+
+\section{Metrics for validation}
+The measure our model performance, we calculate multiple metrics that are used commonly in machine learning research. To illustrate the metrics, we will use the following abbreviations: true positive (TP), true negative (TN), false positive (FP), false negative (FN), true positive rate (TPR) and false positive rate (FPR). The metrics are calculated as follows:
+
+$${
+            Precision = \frac{\sum TP}{\sum TP + \sum FP}
+        }
+$$
+
+The precision metrics measures the ratio of correct positively labeled instances to all positively labeled instances.
+
+$${
+            Recall = \frac{\sum TP}{\sum TP + \sum FN}
+        }
+$$
+
+The recall metrics measures the ratio of correct positively labeled instances to all instances that should have been labeled positive.
+
+$${
+            F_1 = 2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}
+        }
+$$
+
+$F_1$ is the harmonic mean of Precision and Recall.
+
+$${
+            TPR = \frac{\sum TP}{\sum TP + \sum FN}
+        }
+$$
+
+True Positive Rate (TPR) is just a synonym for Recall.
+
+$${
+            FPR = \frac{\sum FP}{\sum FP + \sum TN}
+        }
+$$
+
+False Positive Rate (FPR) determines the rate of incorrectly identified labeled instances.\\\\
+The receiving operating characteristics (ROC) curve is an evaluation metric for binary classification problems that plots TPR and FPR at various threshold values. It essentialy seperates the 'signal' from 'noise'. The area under the ROC curve, called the AUC, of the ability of a classifier to distinguish between classes and is used as a summary of the ROC curve.
+\section{Results}
+
+\section{Comparison }
