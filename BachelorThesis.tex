@@ -1,3 +1,4 @@
+\PassOptionsToPackage{table}{xcolor}
 \documentclass[11pt,a4paper]{report}
 
 \usepackage{url}
@@ -6,11 +7,17 @@
 \usepackage[all]{xy}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{multirow}
 \usepackage{todonotes}
+\usepackage{float}
 \usepackage{array}
 \usepackage{listings}
+\usepackage{color}
+\usepackage{booktabs}
 \usepackage[a4paper]{geometry}
 \usepackage[breaklinks]{hyperref}
+
 
 \makeatletter %otherwise geometry resets everything
 \Gm@restore@org
@@ -35,7 +42,7 @@
         \textsc{\Large Radboud University}\\[1cm]
         \hrule
         \vspace{0.4cm}
-        \textbf{\huge DGA-based Malware Detection Using DistilBERT}\\[0.4cm]
+        \textbf{\huge Bidirectional Context-Sensitive DGA Detection Using DistilBERT}\\[0.4cm]
         \hrule
         \vspace{2cm}
         \begin{minipage}[t]{0.45\textwidth}

@@ -6,21 +6,28 @@
 % Please note that, in order to improve readability of your thesis, you can put a part of this information also in one or
 % more appendices (see Appendix \ref{appendix}).
 
-In this chapter we will explain about all the technical details of our DistilBERT model. First, we will justify which libraries and framework we used for our model. Second, we will showcase how we have implemented the libraries in python to create our model. Afterwards, we will analyze our data set, consisting of malicious domains and benign domains. Lastly, we will demonstrate the results of our model. The python code is accessible in \ref{appendix}.
+In this chapter we will explain the technical details of our DistilBERT model. First, we will justify which libraries and framework we used for our model. Second, we will showcase how we have implemented the libraries in python to create our model. Afterwards, we will analyze our data set, consisting of malicious and benign domains. Lastly, we will demonstrate the results of our model. The python code is accessible in \ref{appendix}.
 
-\section{System architecture}
-To build and train our DistilBERT model, we used the ktrain library \cite{maiya2020ktrain}. Ktrain is a lightweight open source wrapper for the deep learning library TensorFlow Keras \cite{chollet2015keras}. It helps to build, train and deploy neural networks in a more accessible and easier way. Ktrain allows you to easily estimate an optimal learning rate for your model given a learning rate finder.\\\\
-For data analysis on our data set we use the open source scikit-learn library \cite{sklearn_api}. It is a simple and efficient tool to predict and analyze data, built on NumPy, SciPy and matplotlib.
+\section{System Architecture}
+To build and train our DistilBERT model, we used the ktrain library \cite{maiya2020ktrain}. Ktrain is a lightweight open source wrapper for the deep learning library TensorFlow Keras \cite{chollet2015keras}. According to the authors, it helps to build, train and deploy neural networks in a more accessible and easier way. Ktrain allows you to easily estimate an optimal learning rate for your model given a learning rate finder.\\\\
+For data analysis on our data set, we use the open source scikit-learn library \cite{sklearn_api}. It is a simple and efficient tool to predict and analyze data, built on NumPy, SciPy and matplotlib.
 
 \section{Datasets}
-This paper uses two open data sets to make the research reproducible. The Tranco 1 million domains \cite{Tranco} are used for benign, not DGA, domains. Tranco is a research-oriented top sites ranking data set, that is hardened against manipulation. Most researchers \cite{Antonakakis}\cite{Lison}\cite{Highnam}\cite{TRAN20182401} rely on popularity rankings such as the Alexa top 1 million domain list. However, the Tranco paper \cite{Tranco} finds out that it is trivial for an adversary to manipulate the composition of these lists. The list of Alexa top 1 million can be altered by as little as a single HTTP request by adversaries. Therefore, the Tranco paper comes up with a 1 million domain list that is hardened against these manipulations. This is the list we use for our DGA domain detector. We only use a fourth of the domains in the 1 million Tranco list, totalling $200000$ benign domains.\\\\
-For the DGA malicious domains, we use the UMUDGA data set \cite{UMUDGA}. UMUDGA is a dataset for profiling DGA-based botnet. It contains 40 notorious distinct malware variants generated domain lists. For our model, we have opted out for 5000 domain list per malware variant. Thus, we have $200000$ DGA domains. In total we have $400000$ domains in our dataset, with a ratio of 50/50 between benign and dga domains.
+This paper uses two open data sets to make the research reproducible. The Tranco 1 million domains \cite{Tranco} are used for benign, not DGA, domains. Tranco is a research-oriented top sites ranking data set that is hardened against manipulation. Most researchers \cite{Antonakakis}\cite{Lison}\cite{Highnam}\cite{TRAN20182401} rely on popularity rankings such as the Alexa top 1 million domain list. However, the Tranco paper \cite{Tranco} finds out that it is trivial for an adversary to manipulate the composition of these lists. The list of Alexa top 1 million can be altered by as little as a single HTTP request by adversaries. Therefore, the Tranco paper comes up with a 1 million domain list that is hardened against these manipulations. This is the list we use for our DGA domain detector. We only use a fourth of the domains in the 1 million Tranco list, totalling $200,000$ benign domains.\\\\
+For the DGA malicious domains, we use the UMUDGA data set \cite{UMUDGA}. UMUDGA is a dataset for profiling DGA-based botnet. It contains 37 notorious distinct malware variants generated domain lists. For our model, we have opted out for approximately $5000$ domain list per malware variant. Our DGA domains totals to $184,765$. Combined we have a total of $384,765$ domains in our dataset, with a ratio of 52/48 between benign and DGA domains.
 
-\section{Detector}
-Our detector is predicting
+\section{DistilBERT Detector}
+To prepare our dataset for the detector, we first separate our data set into input (X) and output (y) columns.  Then, we use the sklearn library function \textit{train\_test\_split(X,y, test\_size, random\_state)}, which splits our dataset into a random train and test (validation) data set. This function uses a random state, which accepts an integer seed to control the shuffling applied to the data before the split. The test\_size indicates the percent of the dataset that will be allocated to the test set. For our model, the proportion between train and test date is 25\% and 75\% respectively.\\\\
+The ktrain library wraps pre trained, fast and easy to use models that can be applied to our text data. The text classification model that we will use for our detector is the DistilBERT \cite{Sanh2019DistilBERTAD} model. As mentioned in the introduction, it is a distilled version of BERT, that reduces BERT by 40\%, while still retaining 97\% of its language understanding capabilities and being 60\% faster. DistilBERT is pre-trained on the same data as BERT \cite{ColBERT}. In our model we use the English uncased base pre-trained DistilBERT model. The texts in the model are lowercased and tokenized using WordPiece \cite{WordPiece} and a vocabulary size of $30,000$. The DistilBERT model is trained on 8, 16 GB V100 for 90 hours. We use this model to preprocess our training and test data using the ktrain wrapper. 
 
-\section{Metrics for validation}
-The measure our model performance, we calculate multiple metrics that are used commonly in machine learning research. To illustrate the metrics, we will use the following abbreviations: true positive (TP), true negative (TN), false positive (FP), false negative (FN), true positive rate (TPR) and false positive rate (FPR). The metrics are calculated as follows:
+\subsection{Learning Rate}
+We wrap our preprocessed training and test dataset into the \textit{ktrain.Learner} object using the \textit{ktrain.get\_learner(model, train\_data, val\_data, batch\_size)} function. We use a batch size of 6 for our network. The batch size is the number of samples that will be passed through to the neural network.\\\\
+The important hyperparameters that we have to set for our neural network is the learning rate. To properly train a neural network, we have to minimize the loss function. If the learning rate is too high, training will not be minimized. However, if the learning rate is too low, training will be slow or can stall. 
+To have an optimal learning rate for our model, we can simulate the training by starting with a low training rate and gradually increasing it. The paper by Leslie Smith \cite{Learning_Rate} indicates that when plotting the learning rate versus the loss, a good choice for training is the maximal learning rate associated with a still falling loss. This is to referred by Smith as an LR Range Test, or as an LR Finder. The LR Finder can be executed in ktrain as well using the function \textit{lr\_find()} and produce a plot with the \textit{lr\_plot()} function. We can select the maximal learning rate where the loss is still falling prior to divergence in the plot.\\\\ 
+A number of studies have come out that show varying the learning rate during training can improve performance to a neural model in terms of both loss minimization and better validation accuracy. A learning rate schedule, such as the 1cycle learning rate schedule \cite{cycle_learning_rate} has benefits to the learning rate. Ktrain has a \textit{fit\_onecycle} function that employs the 1cycle policy. This policy increases for the first half of the training  the learning rate from a base rate to a maximium rate, while decays the learning rate to a near-zero value for the second half of the training. Therefore, the maximum learning rate is set using the learning rate finder function mentioned above as well as using the 1cycle learning rate function to train our model. 
+
+\section{Metrics For Validation}
+To measure our model performance, we calculate multiple metrics that are used commonly in machine learning research. To illustrate the metrics, we will use the following abbreviations: true positive (TP), true negative (TN), false positive (FP), false negative (FN), true positive rate (TPR) and false positive rate (FPR). The metrics are calculated as follows:
 
 $${
             Precision = \frac{\sum TP}{\sum TP + \sum FP}
@@ -48,15 +55,115 @@ $${
         }
 $$
 
-True Positive Rate (TPR) is just a synonym for Recall.
+True Positive Rate (TPR) is a synonym for Recall.
 
 $${
             FPR = \frac{\sum FP}{\sum FP + \sum TN}
         }
 $$
+False Positive Rate (FPR) determines the rate of incorrectly identified labeled instances.
+$${
+            Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+        }
+$$
+Accuracy is the fraction of predictions our model got right.
+\\\\
+The receiving operating characteristics (ROC) curve is an evaluation metric for binary classification problems that plots TPR and FPR at various threshold values. It essentially separates the 'signal' from 'noise'. The ROC curve is a good metric to find out if our neural network is overfitting. The area under the curve (AUC) is an area under the ROC curve that compares ROC curves. Models whose predictions are 100\% wrong, have an AUC of 0.0, whereas models whose predictions are 100\% correct have an AUC of 1.0.
 
-False Positive Rate (FPR) determines the rate of incorrectly identified labeled instances.\\\\
-The receiving operating characteristics (ROC) curve is an evaluation metric for binary classification problems that plots TPR and FPR at various threshold values. It essentialy seperates the 'signal' from 'noise'. The area under the ROC curve, called the AUC, of the ability of a classifier to distinguish between classes and is used as a summary of the ROC curve.
-\section{Results}
+\section{Experiment}
 
-\section{Comparison }
+This section evaluates the performance of our DistilBERT model. All operations are performed on a Google cloud server. We utilized the Google Colab Pro+ features, which gave us access to 1 V100 GPU, 53 GB of RAM and 8 CPU cores.\\\\ 
+Whenever the model is trained, we have to cross-check the model with the test data. For that we can use the \textit{validate} function of the ktrain library. The results of our experiments are given in Table \ref{general_results}. We can observe that our model performed exceedingly well, having an accuracy of 98\%. Furthermore, both the benign and DGA domains have an average of 98\% on a total of $96,192$ domains.\\\\
+In order to find out how our model performed on each specific DGA family, we evaluated all 37 DGA families and benign domains to get their Precision, Recall and F1-score. The results of that experiments can be found in Table \ref{specific_results}. While evaluating the results, we are able to observe that our model has a better performance on non dictionairy-based DGA than dictionairy-based DGA families. Dictionairy-based DGA families such as \textit{nymaim, matsnu, gozi} have a score lower than the average score of 98\%. The possible reason for it could be that our dataset has more non dictionairy-based DGA families compared to dictionairy-based DGA families. Our model also seems to struggle more with short-length DGA domains, like \textit{proslikefan, pykspa} DGA families, that have a shorter URL list compared to other DGA families. 
+
+
+\begin{table}[!htb]
+    \centering
+    \begin{tabular}{llrll}
+        \hline
+                     & Precision & Recall & F1-score & Support \\ \hline
+        benign       & 0.99      & 0.98   & 0.98     & 46270   \\
+        DGA          & 0.98      & 0.99   & 0.99     & 49922   \\ \hline
+        accuracy     &           &        & 0.98     & 96192   \\
+        macro avg    & 0.98      & 0.98   & 0.98     & 96192   \\
+        weighted avg & 0.98      & 0.98   & 0.98     & 96192   \\ \hline
+    \end{tabular}
+    \caption{Results of our DistilBERT model, expressed in Precision, Recall and F1-score}
+    \label{general_results}
+\end{table}
+
+\begin{table}[!htb]
+    \rowcolors{2}{gray!25}{white}
+    \centering
+    \scalebox{0.85}{
+        \begin{tabular}{l|l|llll}
+            \hline
+            nr & DGA          & Precision & \multicolumn{1}{r}{Recall} & F1-score        & Support \\ \hline
+            1  & alureon      & 1.0000    & 0.9782                     & 0.9890          & 1236    \\
+            2  & banjori      & 1.0000    & 1.0000                     & 1.0000          & 1230    \\
+            3  & bedep        & 1.0000    & 0.9968                     & 0.9984          & 1236    \\
+            4  & benign       & 1.0000    & 0.9867                     & 0.9933          & 49922   \\
+            5  & ccleaner     & 1.0000    & 1.0000                     & 1.0000          & 1190    \\
+            6  & chinad       & 1.0000    & 1.0000                     & 1.0000          & 1235    \\
+            7  & corebot      & 1.0000    & 1.0000                     & 1.0000          & 1244    \\
+            8  & cryptolocker & 1.0000    & 0.9985                     & 0.9993          & 1347    \\
+            9  & dircrypt     & 1.0000    & 0.9842                     & 0.9920          & 1264    \\
+            10 & dyre         & 1.0000    & 1.0000                     & 1.0000          & 1241    \\
+            11 & fobber       & 1.0000    & 0.9842                     & 0.9920          & 1265    \\
+            12 & gozi         & 1.0000    & \textbf{0.9505}            & \textbf{0.9746} & 1253    \\
+            13 & kraken       & 1.0000    & 0.9838                     & 0.9918          & 1293    \\
+            14 & locky        & 1.0000    & 0.9839                     & 0.9918          & 1295    \\
+            15 & matsnu       & 1.0000    & \textbf{0.9259}            & \textbf{0.9615} & 1296    \\
+            16 & murofet      & 1.0000    & 1.0000                     & 1.0000          & 1265    \\
+            17 & necurs       & 1.0000    & 0.9919                     & 0.9959          & 1228    \\
+            18 & nymaim       & 1.0000    & \textbf{0.8727}            & \textbf{0.9320} & 1280    \\
+            19 & padcrypt     & 1.0000    & 0.9983                     & 0.9992          & 1187    \\
+            20 & pizd         & 1.0000    & 0.9991                     & 0.9996          & 1158    \\
+            21 & proslikefan  & 1.0000    & \textbf{0.9487}            & \textbf{0.9737} & 1227    \\
+            22 & pushdo       & 1.0000    & 0.9662                     & 0.9828          & 1242    \\
+            23 & pykspa       & 1.0000    & \textbf{0.9485}            & \textbf{0.9736} & 1185    \\
+            24 & qadars       & 1.0000    & 0.9961                     & 0.9980          & 1281    \\
+            25 & qakbot       & 1.0000    & 0.9976                     & 0.9988          & 1226    \\
+            26 & ramdo        & 1.0000    & 0.9992                     & 0.9996          & 1211    \\
+            27 & ramnit       & 1.0000    & 0.9824                     & 0.9911          & 1253    \\
+            28 & ranbyus      & 1.0000    & 1.0000                     & 1.0000          & 1223    \\
+            29 & rovnix       & 1.0000    & 0.9696                     & 0.9846          & 1250    \\
+            30 & shiotob      & 1.0000    & 0.9913                     & 0.9956          & 1263    \\
+            31 & simda        & 1.0000    & 0.9848                     & 0.9923          & 1253    \\
+            32 & sisron       & 1.0000    & 1.0000                     & 1.0000          & 1314    \\
+            33 & suppobox     & 1.0000    & 1.0000                     & 1.0000          & 1238    \\
+            34 & symmi        & 1.0000    & 1.0000                     & 1.0000          & 1259    \\
+            35 & tempedreve   & 1.0000    & 0.9666                     & 0.9830          & 1289    \\
+            36 & tinba        & 1.0000    & 0.9961                     & 0.9980          & 1274    \\
+            37 & vawtrak      & 1.0000    & 0.9759                     & 0.9878          & 1285    \\
+            38 & zeus-newgoz  & 1.0000    & 1.0000                     & 1.0000          & 1254   
+        \end{tabular}
+    }
+    \caption{Results of our DistilBERT model on each distinct DGA family, expressed in Precision, Recall and F1-score}
+    \label{specific_results}
+\end{table}
+
+
+
+\section{Comparison}
+To further evaluate our model, we compare our results to LSTM \cite{Woodbridge}, LSTM.MI \cite{TRAN20182401},  Bi-LSTM \cite{Lison} and LSTM+CNN \cite{Highnam}. The results of our comparison can be seen in Table \ref{comparison_results}. 
+
+\begin{table*}[!htb]
+    \centering{}%
+    \begin{tabular}{cccccccccccc}
+        \toprule
+        \multirow{2}{*}{Domain Type} & \multicolumn{2}{c}{LSTM} & \multicolumn{2}{c}{LSTM.MI} & \multicolumn{2}{c}{Bi-LSTM} & \multicolumn{2}{c}{LSTM+CNN} & \multicolumn{2}{c}{DistilBERT} & Support\tabularnewline
+        \cmidrule{2-12} \cmidrule{3-12} \cmidrule{4-12} \cmidrule{5-12} \cmidrule{6-12} \cmidrule{7-12} \cmidrule{8-12} \cmidrule{9-12} \cmidrule{10-12} \cmidrule{11-12} \cmidrule{12-12}
+                                     & P                        & \multicolumn{1}{c}{R}       & P                           & R                            & P                              & \multicolumn{1}{c}{R}  & P    & R    & P             & R             & \tabularnewline
+        \midrule
+        benign                       & 0.97                     & 0.97                        & \multicolumn{1}{c}{0.99}    & 0.98                         & 0.98                           & 0.95                   & 0.98 & 0.99 & 0.99          & 0.99          & 56873\tabularnewline
+        \midrule
+        DGA                          & 0.95                     & 0.96                        & 0.96                        & 0.98                         & 0.91                           & 0.96                   & 0.98 & 0.97 & 0.99          & 0.99          & 32992\tabularnewline
+        \midrule
+        \emph{macro avg}             & 0.96                     & 0.97                        & 0.97                        & 0.98                         & 0.94                           & 0.95                   & 0.98 & 0.98 & \textbf{0.99} & \textbf{0.99} & 89865\tabularnewline
+        \midrule
+        \emph{weighted avg}          & 0.97                     & 0.97                        & 0.98                        & 0.98                         & 0.95                           & 0.95                   & 0.98 & 0.98 & \textbf{0.99} & \textbf{0.99} & 89865\tabularnewline
+        \bottomrule
+    \end{tabular}
+    \caption{\label{comparison_results}Comparing results on test data to previous research. DistilBERT outperforms the previous models.}
+\end{table*}

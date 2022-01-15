@@ -14,13 +14,14 @@
 \contentsline {section}{\numberline {2.7}Transformers}{12}{section.2.7}%
 \contentsline {subsection}{\numberline {2.7.1}BERT}{14}{subsection.2.7.1}%
 \contentsline {chapter}{\numberline {3}Research}{16}{chapter.3}%
-\contentsline {section}{\numberline {3.1}System architecture}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.1}System Architecture}{16}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Datasets}{16}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Detector}{17}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Metrics for validation}{17}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Results}{18}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Comparison }{18}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Related Work}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Contribution}{20}{section.4.1}%
-\contentsline {chapter}{\numberline {5}Conclusions}{21}{chapter.5}%
-\contentsline {chapter}{\numberline {A}Appendix}{25}{appendix.A}%
+\contentsline {section}{\numberline {3.3}DistilBERT Detector}{17}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Learning Rate}{17}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}Metrics For Validation}{18}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Experiment}{19}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Comparison}{20}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Related Work}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Contribution}{24}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Conclusions}{25}{chapter.5}%
+\contentsline {chapter}{\numberline {A}Appendix}{30}{appendix.A}%

@@ -132,6 +132,17 @@ Murat Sazli.
 \newblock {\em Communications, Faculty Of Science, University of Ankara},
   50:11--17, 01 2006.
 
+\bibitem{Learning_Rate}
+Leslie~N. Smith.
+\newblock No more pesky learning rate guessing games.
+\newblock {\em CoRR}, abs/1506.01186, 2015.
+
+\bibitem{cycle_learning_rate}
+Leslie~N. Smith.
+\newblock A disciplined approach to neural network hyper-parameters: Part 1 -
+  learning rate, batch size, momentum, and weight decay.
+\newblock {\em CoRR}, abs/1803.09820, 2018.
+
 \bibitem{ist}
 Symantec.
 \newblock {Internet Security Threat Report Volume 24}.
@@ -155,6 +166,17 @@ Jonathan Woodbridge, Hyrum~S. Anderson, Anjum Ahuja, and Daniel Grant.
 \newblock Predicting domain generation algorithms with long short-term memory
   networks.
 \newblock {\em CoRR}, abs/1611.00791, 2016.
+
+\bibitem{WordPiece}
+Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc~V. Le, Mohammad Norouzi, Wolfgang
+  Macherey, Maxim Krikun, Yuan Cao, Qin Gao, Klaus Macherey, Jeff Klingner,
+  Apurva Shah, Melvin Johnson, Xiaobing Liu, Lukasz Kaiser, Stephan Gouws,
+  Yoshikiyo Kato, Taku Kudo, Hideto Kazawa, Keith Stevens, George Kurian,
+  Nishant Patil, Wei Wang, Cliff Young, Jason Smith, Jason Riesa, Alex Rudnick,
+  Oriol Vinyals, Greg Corrado, Macduff Hughes, and Jeffrey Dean.
+\newblock Google's neural machine translation system: Bridging the gap between
+  human and machine translation.
+\newblock {\em CoRR}, abs/1609.08144, 2016.
 
 \bibitem{Tan_h}
 Leon~Bottou Yann~LeCun, Genevieve~B. Orr, and Klaus-Robert Müller.
