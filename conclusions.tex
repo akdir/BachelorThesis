@@ -1,6 +1,8 @@
 \chapter{Conclusions}\label{conclusions}
-In this chapter you present all conclusions that can be drawn from the
-preceding chapters.
-It should not introduce new experiments, theories, investigations, etc.:
-these should have been written down earlier in the thesis.
-Therefore, conclusions can be brief and to the point.
+We presented a novel deep learning network to classify and detect malicious generated domain names. This was done by using a pre-trained context-sensitive word embedding bidirectional network (specifically DistilBERT \cite{Sanh2019DistilBERTAD}). Current methods for this task are inadequate for handling this challenge. As our results showcased, we were able to detect DGA domains with minimal training data by utilizing language semantics knowledge. Although our model was better at classifying non-dictionary based DGA domains then dictionary-based DGA domains, it had an overall better performance than all previous deep learning architectures. Our model delivers an F1-score of $0.9957$ and an accuracy of $0.9958$ for detection and classification tasks respectively.\\\\
+Future research could focus on investigating the dictionary-based malware families to further improve the overall system accuracy. As well as focussing on further developing the embedded pre-train process of the DistilBERT architecture. The embedding could be amenable to fine-tuning to DGA domains specifically. Even though, the unmodified pre-trained DistilBERT model performed extremely well, there might still be room for improvement.\\\\ 
+All relevant source code and suggestions on deploying a DistilBERT architecture were provided by this paper. In addition, we reference open datasets to create an equal classifier to that presented in this paper. To the best of our knowledge, the presented system is by far the best performing DGA classification system. 
+
+
+\section{Acknowledgement}
+The author would like to thank his spouse, Ayah A. Issa, for her invaluable comments and suggestions.

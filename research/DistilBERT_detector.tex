@@ -396,7 +396,7 @@ This is to make sure that if the notebook is run locally, it will not
 execute Google Colab environment commands.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
 \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
@@ -404,33 +404,41 @@ execute Google Colab environment commands.
 \PY{k+kn}{import} \PY{n+nn}{sys}
 \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k+kn}{import} \PY{n}{shuffle}
 \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k+kn}{import} \PY{n}{accuracy\PYZus{}score}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k+kn}{import} \PY{n}{roc\PYZus{}auc\PYZus{}score}
 
 \PY{n}{ENV\PYZus{}COLAB} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{google.colab}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{sys}\PY{o}{.}\PY{n}{modules}
 
 \PY{k}{if} \PY{n}{ENV\PYZus{}COLAB}\PY{p}{:}
     \PY{c+c1}{\PYZsh{}\PYZsh{} install modules}
-    \PY{o}{!}pip install \PYZhy{}q ktrain
+    \PY{err}{!}\PY{n}{pip} \PY{n}{install} \PY{o}{\PYZhy{}}\PY{n}{q} \PY{n}{ktrain}
     \PY{k+kn}{from} \PY{n+nn}{google}\PY{n+nn}{.}\PY{n+nn}{colab} \PY{k+kn}{import} \PY{n}{drive}
     \PY{n}{drive}\PY{o}{.}\PY{n}{mount}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{force\PYZus{}remount}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
 
     \PY{c+c1}{\PYZsh{}\PYZsh{} print}
     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Environment: Google Colaboratory Pro+.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{c+c1}{\PYZsh{} import ktrain}
+\PY{k+kn}{import} \PY{n+nn}{ktrain}
+\PY{n}{SEED} \PY{o}{=} \PY{l+m+mi}{42}
 \end{Verbatim}
 \end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mounted at /content/drive
+Environment: Google Colaboratory Pro+.
+    \end{Verbatim}
 
     Again we check which environment we are to correctly find the location
 of the data of our domains
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{19}{\boxspacing}
+\prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{if} \PY{n}{ENV\PYZus{}COLAB}\PY{p}{:}
-  \PY{n}{dgaLocation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/DGA\PYZus{}domains/}\PY{l+s+s1}{\PYZsq{}}
-  \PY{n}{benignDomains} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/benign\PYZus{}domains/top\PYZhy{}1m.csv}\PY{l+s+s1}{\PYZsq{}}
+  \PY{n}{dga\PYZus{}location} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/DGA\PYZus{}domains/}\PY{l+s+s1}{\PYZsq{}}
+  \PY{n}{benign\PYZus{}domains} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/benign\PYZus{}domains/top\PYZhy{}1m.csv}\PY{l+s+s1}{\PYZsq{}}
 \PY{k}{else}\PY{p}{:}
-  \PY{n}{dgaLocation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/DGA\PYZus{}domains/}\PY{l+s+s1}{\PYZsq{}}
-  \PY{n}{benignDomains} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/benign\PYZus{}domains/top\PYZhy{}1m.csv}\PY{l+s+s1}{\PYZsq{}}
+  \PY{n}{dga\PYZus{}location} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/DGA\PYZus{}domains/}\PY{l+s+s1}{\PYZsq{}}
+  \PY{n}{benign\PYZus{}domains} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/benign\PYZus{}domains/top\PYZhy{}1m.csv}\PY{l+s+s1}{\PYZsq{}}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -438,10 +446,10 @@ of the data of our domains
 domain data, this will total 20 different types.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{20}{\boxspacing}
+\prompt{In}{incolor}{17}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{dgaDomains} \PY{o}{=} \PY{p}{[}\PY{n}{dga} \PY{k}{for} \PY{n}{dga} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{dgaLocation}\PY{p}{)} \PY{k}{if} \PY{n}{dga}\PY{o}{.}\PY{n}{endswith}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
-\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total amount of DGA types: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dgaDomains}\PY{p}{)}\PY{p}{)}
+\PY{n}{dga\PYZus{}domains} \PY{o}{=} \PY{p}{[}\PY{n}{dga} \PY{k}{for} \PY{n}{dga} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{dga\PYZus{}location}\PY{p}{)} \PY{k}{if} \PY{n}{dga}\PY{o}{.}\PY{n}{endswith}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total amount of DGA types: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dga\PYZus{}domains}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -452,30 +460,28 @@ Total amount of DGA types:  37
     \hypertarget{load-the-data-into-arrays}{%
 \subsection{Load the data into arrays}\label{load-the-data-into-arrays}}
 
-We will randomly select 110000 samples from the benign domains and 90000
-from the dga domains. The ratio between the benign and dga domains will
-be 55:45. Thus we trimmed our data to a total of 200000 domains to use
-for training our BERT classifier
+We will only take 200,000 domains of our benign data set, to have almost
+the same ratio of benign and DGA domains. In total we have 384,765
+domains: 200,000 benign domains and 184765 DGA domains.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{21}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
-\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{dga} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{dgaDomains}\PY{p}{)}\PY{p}{:}
-  \PY{n}{dgaDataFrame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{dgaLocation} \PY{o}{+} \PY{n}{dga}\PY{p}{)}
-  \PY{n}{dgaDataFrame}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{dga}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-  \PY{n}{dgaDataFrame}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
-  \PY{n}{dataset} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dgaDataFrame}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
-\PY{n}{benignDataFrame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{benignDomains}\PY{p}{)}
-\PY{n}{benignDataFrame}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{benign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{benignDataFrame}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
-\PY{n}{dataset} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benignDataFrame}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{200000}\PY{p}{]}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
-\PY{n}{dataset} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{benign\PYZus{}dataframe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{benign\PYZus{}domains}\PY{p}{)}
+\PY{n}{benign\PYZus{}dataframe}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{benign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{benign\PYZus{}dataframe}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{dataset} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{benign\PYZus{}dataframe}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{200000}\PY{p}{]}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{dga} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{dga\PYZus{}domains}\PY{p}{)}\PY{p}{:}
+  \PY{n}{dga\PYZus{}dataframe} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{dga\PYZus{}location} \PY{o}{+} \PY{n}{dga}\PY{p}{)}
+  \PY{n}{dga\PYZus{}dataframe}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{dga}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+  \PY{n}{dga\PYZus{}dataframe}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+  \PY{n}{dataset} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dga\PYZus{}dataframe}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{22}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total amount of DGA domains: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total amount of benign domains: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
@@ -499,24 +505,27 @@ has to be given. Popular seeds are 42 or 0. We chose 42 for obvious
 reasons.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{32}{\boxspacing}
+\prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{if} \PY{n}{ENV\PYZus{}COLAB}\PY{p}{:}
   \PY{n}{dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{k}{else}\PY{p}{:}
   \PY{n}{dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{X} \PY{o}{=} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{domain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
 
 \PY{n}{labels} \PY{o}{=} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
 \PY{n}{class\PYZus{}names} \PY{o}{=} \PY{n}{labels}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
-\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\PY{n}{X} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,}
+                                                    \PY{n}{labels}\PY{p}{,}
+                                                    \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,}
+                                                    \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{SEED}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-    Display the first 10 and last 10 data in our dataset.
+    Display the first and last 10 data of our dataset.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{33}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{display}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
@@ -524,32 +533,32 @@ reasons.
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-                            domain    type  class
-0                fliffmdhwrdjb.org   locky      1
-1                  oqfyajoxgqnf.pw   locky      1
-2                     pnycpjwcw.pl   locky      1
-3                     bxicshg.info   locky      1
-4           bamiitcnugeuemxgt.work   locky      1
-5           yuldhyhtaiqgjrpfk.work   locky      1
-6                   irjhglaihb.xyz   locky      1
-7                oxmblinqcstkj.xyz   locky      1
-8                   phudexoqds.xyz   locky      1
-9                fqsfemovqshfcc.su   locky      1
-384755                  asumag.com  benign      0
-384756            montessorinb.com  benign      0
-384757                iremember.ru  benign      0
-384758  hethongxulynuocthai.com.vn  benign      0
-384759            steviewonder.net  benign      0
-384760             kenyan-post.com  benign      0
-384761                  adepem.com  benign      0
-384762                     gln.com  benign      0
-384763           omahaoutdoors.com  benign      0
-384764               talkhouse.com  benign      0
+                              domain    type  class
+0                         google.com  benign      0
+1                        netflix.com  benign      0
+2                        youtube.com  benign      0
+3                       facebook.com  benign      0
+4                      microsoft.com  benign      0
+5                        twitter.com  benign      0
+6                      instagram.com  benign      0
+7                          tmall.com  benign      0
+8                       linkedin.com  benign      0
+9                          apple.com  benign      0
+384755    mailfraudemwittenberge.com    gozi      1
+384756             tamenanimabus.com    gozi      1
+384757       manetqueritgratuita.com    gozi      1
+384758     immotheopurgatoriosed.com    gozi      1
+384759       graigiturestpropter.com    gozi      1
+384760  penitpenapapaquidnecesse.com    gozi      1
+384761     queritsprocelebrantur.com    gozi      1
+384762          habesacrosanctum.com    gozi      1
+384763      efapeneagplenpenarum.com    gozi      1
+384764    redimereetsicutpenanon.com    gozi      1
     \end{Verbatim}
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{36}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Size of training set: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Size of validation set: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
@@ -561,27 +570,68 @@ Size of training set: 288573
 Size of validation set: 96192
     \end{Verbatim}
 
+    Display the first 10 domains in the train and test dataset respectively.
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{37}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\PY{n}{display}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n}{display}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
+    
     \begin{Verbatim}[commandchars=\\\{\}]
-                        domain     type  class
-284318      springeronline.com   benign      0
-271248            indianss.org   benign      0
-362013                pnsn.org   benign      0
-274681           mtexpress.com   benign      0
-106241     odonxl1egulqj4t.com  shiotob      1
-356934  chambre-agriculture.fr   benign      0
-251804                  s.coop   benign      0
-207205      taishinbank.com.tw   benign      0
-324992              neu.edu.vn   benign      0
-46367           lyiemychun.com   fobber      1
+                          domain          type
+284318          mdgxmdi2nzka.com        sisron
+271248   talkhtohmnbkmhrbnod.com        ramnit
+362013     xgqcldxsylknwng.co.uk  cryptolocker
+274681         hucdkvhprhqbf.com        ramnit
+106241           bbvacompass.com        benign
+356934            pujamyqywyk.eu         simda
+251804   thesetheiroftheright.cn        rovnix
+207205           fnkmbukfttf.net        pykspa
+324992            slutslenses.az        nymaim
+46367        barry-callebaut.com        benign
+137337               feedhive.io        benign
+54886                   forum.hr        benign
+207892               rcmwvic.org        pykspa
+110268       yakuzaishi-navi.com        benign
+119879           proctorexam.com        benign
+259178          ab4102f506d08.co      ccleaner
+365838  mefofogigouptak.ddns.net         symmi
+131932           51yangsheng.com        benign
+146867                 pekori.to        benign
+121958                larian.com        benign
     \end{Verbatim}
 
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                               domain         type
+226382                        seraphinaautenberry.net     suppobox
+352715  b18i35i55f12ova27e31c69f12i45ayeqcya37ltaq.ru      murofet
+48728                                         lef.org       benign
+13920                                     gapyear.com       benign
+15746                               damndelicious.net       benign
+288103                                   dibmcuhpb.ga       necurs
+233787                             hmhbmohaf.mooo.com       kraken
+304436                                 rvcmkvayna.com      alureon
+24827                                     devshed.com       benign
+197878                                cheddarflow.com       benign
+305215                               49yfa5n1cmps.com      shiotob
+82397                                    bemaster.com       benign
+379582                                 wehossatig.com      vawtrak
+349367                                     srxjrhv.eu  proslikefan
+7124                                   shopdisney.com       benign
+6056                                   livenation.com       benign
+347606                                    mlqxtil.biz  proslikefan
+12052                            mcafeewebadvisor.com       benign
+271122                         oijtwpbesajdnijsmm.com       ramnit
+269614                           kmcsdpavnstpjmgyb.cc      ranbyus
+    \end{Verbatim}
+
+    
     We list all the text models that ktrain offers. For our research we will
 use the distilbert model. Which is a faster, smaller and distilled
 version of BERT.
@@ -606,8 +656,11 @@ distilbert: distilled, smaller, and faster BERT from Hugging Face transformers
 [https://arxiv.org/abs/1910.01108]
     \end{Verbatim}
 
+    Specifically, the distilbert base uncased model. This model is trained
+on uncased English words.
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{4}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{model\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distilbert\PYZhy{}base\PYZhy{}uncased}\PY{l+s+s1}{\PYZsq{}}
 \PY{n}{t} \PY{o}{=} \PY{n}{ktrain}\PY{o}{.}\PY{n}{text}\PY{o}{.}\PY{n}{Transformer}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{,} \PY{n}{class\PYZus{}names}\PY{o}{=}\PY{n}{labels}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{,}
@@ -621,14 +674,26 @@ Downloading:   0\%|          | 0.00/483 [00:00<?, ?B/s]
     \end{Verbatim}
 
     
+    Drop the `type' column in the train and test input data. As we need only
+the domains to train our model. This type is needed in our train and
+test dataset later on to validate on each specific DGA familytype.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)}
+\PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
     Naming our pre-process train and validation dataset respectively.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{train} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{preprocess\PYZus{}train}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n}{train} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{preprocess\PYZus{}train}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 
-\PY{n}{val} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{preprocess\PYZus{}test}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n}{val} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{preprocess\PYZus{}test}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 \PY{n}{model} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{get\PYZus{}classifier}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
@@ -692,7 +757,8 @@ Downloading:   0\%|          | 0.00/363M [00:00<?, ?B/s]
 provide valuable information about an optimal learnign rate. To point
 has to be chosen at which the loss starts descending and the point at
 which the loss stops descending or becomes ragged. For BERT and
-DistilBERT models the typical learning rate is between 5e-5 and 2e-5.
+DistilBERT models the learning rate that Google recommends is between
+5e-5 and 2e-5.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
@@ -716,11 +782,11 @@ DistilBERT models the typical learning rate is between 5e-5 and 2e-5.
 simulating training for different learning rates{\ldots} this may take a few
 moments{\ldots}
 Epoch 1/4
-25000/25000 [==============================] - 3781s 150ms/step - loss: 0.1452 -
-accuracy: 0.9468
+48095/48095 [==============================] - 7330s 151ms/step - loss: 0.2009 -
+accuracy: 0.9251
 Epoch 2/4
-25000/25000 [==============================] - 2056s 81ms/step - loss: 0.0797 -
-accuracy: 0.9664
+48095/48095 [==============================] - 6647s 138ms/step - loss: 0.3137 -
+accuracy: 0.8086
 
 
 done.
@@ -729,7 +795,7 @@ help identify the maximal learning rate associated with falling loss.
     \end{Verbatim}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{DistilBERT_detector_files/DistilBERT_detector_23_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{DistilBERT_detector_files/DistilBERT_detector_27_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -748,28 +814,28 @@ a model follwing the 1cycle policy.
 
 begin training using onecycle policy with max lr of 3e-05{\ldots}
 Epoch 1/4
-25000/25000 [==============================] - 3861s 153ms/step - loss: 0.0389 -
-accuracy: 0.9874 - val\_loss: 0.0181 - val\_accuracy: 0.9944
+48096/48096 [==============================] - 7729s 159ms/step - loss: 0.0979 -
+accuracy: 0.9642 - val\_loss: 0.0796 - val\_accuracy: 0.9735
 Epoch 2/4
-25000/25000 [==============================] - 3861s 154ms/step - loss: 0.0163 -
-accuracy: 0.9956 - val\_loss: 0.0292 - val\_accuracy: 0.9947
+48096/48096 [==============================] - 7702s 159ms/step - loss: 0.0561 -
+accuracy: 0.9812 - val\_loss: 0.0562 - val\_accuracy: 0.9813
 Epoch 3/4
-25000/25000 [==============================] - 3869s 154ms/step - loss: 0.0091 -
-accuracy: 0.9976 - val\_loss: 0.0166 - val\_accuracy: 0.9965
+48096/48096 [==============================] - 7701s 159ms/step - loss: 0.0338 -
+accuracy: 0.9889 - val\_loss: 0.0595 - val\_accuracy: 0.9837
 Epoch 4/4
-25000/25000 [==============================] - 3888s 155ms/step - loss: 0.0027 -
-accuracy: 0.9994 - val\_loss: 0.0147 - val\_accuracy: 0.9972
+48096/48096 [==============================] - 7661s 158ms/step - loss: 0.0102 -
+accuracy: 0.9968 - val\_loss: 0.0679 - val\_accuracy: 0.9849
     \end{Verbatim}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \prompt{Out}{outcolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-<keras.callbacks.History at 0x7f3d7d5b2110>
+<keras.callbacks.History at 0x7f1b99494590>
 \end{Verbatim}
 \end{tcolorbox}
         
-    Save the learned model to location, to reuse the model without having to
-learn our dataset again.
+    Save the learned model to location, so that we can reuse the model
+without training our dataset again.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
@@ -782,7 +848,8 @@ learn our dataset again.
 \end{Verbatim}
 \end{tcolorbox}
 
-    View observations in learner with top losses in validation dataset.
+    View observation with top losses in validation dataset. The ``n'' is the
+amount of top losses we want to observe.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
@@ -793,41 +860,41 @@ learn our dataset again.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 ----------
-id:29028 | loss:12.09 | true:1 | pred:0)
+id:82070 | loss:13.77 | true:0 | pred:1)
 
     \end{Verbatim}
 
-    We will cross-check the model with the validation(test) data, we can use
-the validate method assigned to the learner instance of the model. The
-results will be displayed in precision, recall and f1 score.
+    We will validate our model using our test data.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{8}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{learner}\PY{o}{.}\PY{n}{validate}\PY{p}{(}\PY{n}{val\PYZus{}data}\PY{o}{=}\PY{n}{val}\PY{p}{,}\PY{n}{class\PYZus{}names}\PY{o}{=}\PY{n}{t}\PY{o}{.}\PY{n}{get\PYZus{}classes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n}{learner}\PY{o}{.}\PY{n}{validate}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
               precision    recall  f1-score   support
 
-           0       1.00      1.00      1.00     27737
-           1       1.00      1.00      1.00     22263
+           0       1.00      1.00      1.00     50103
+           1       1.00      1.00      1.00     46089
 
-    accuracy                           1.00     50000
-   macro avg       1.00      1.00      1.00     50000
-weighted avg       1.00      1.00      1.00     50000
+    accuracy                           1.00     96192
+   macro avg       1.00      1.00      1.00     96192
+weighted avg       1.00      1.00      1.00     96192
 
     \end{Verbatim}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{ }{\boxspacing}
+\prompt{Out}{outcolor}{8}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-array([[27674,    63],
-       [   77, 22186]])
+array([[49924,   179],
+       [  227, 45862]])
 \end{Verbatim}
 \end{tcolorbox}
         
+    
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -836,7 +903,7 @@ array([[27674,    63],
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{DistilBERT_detector_files/DistilBERT_detector_32_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{DistilBERT_detector_files/DistilBERT_detector_37_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -851,11 +918,11 @@ array([[27674,    63],
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \prompt{Out}{outcolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-(50000, (200000, 3), array([[6.0326261e-06, 9.9999392e-01],
-        [9.9999654e-01, 3.3981382e-06],
-        [9.9999535e-01, 4.6324981e-06],
-        [9.9999630e-01, 3.6541069e-06],
-        [1.6295456e-04, 9.9983704e-01]], dtype=float32))
+(96192, (384765, 3), array([[9.9999881e-01, 1.2130566e-06],
+        [9.9527931e-01, 4.7206851e-03],
+        [1.8711445e-04, 9.9981290e-01],
+        [9.9904853e-01, 9.5149077e-04],
+        [1.0452135e-05, 9.9998951e-01]], dtype=float32))
 \end{Verbatim}
 \end{tcolorbox}
         
@@ -863,85 +930,166 @@ array([[27674,    63],
 \subsubsection{Model prediction on validation
 data}\label{model-prediction-on-validation-data}}
 
-    Load the saved predictor model to predict on the validation data.
+    Load the saved predictor model to predict on our validation data again.
+This time we will evaluate and validate each specific DGA family
+separately.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{7}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{if} \PY{n}{ENV\PYZus{}COLAB}\PY{p}{:}
   \PY{n}{predictor} \PY{o}{=} \PY{n}{ktrain}\PY{o}{.}\PY{n}{load\PYZus{}predictor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/model/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{k}{else}\PY{p}{:}
   \PY{n}{predictor} \PY{o}{=} \PY{n}{ktrain}\PY{o}{.}\PY{n}{load\PYZus{}predictor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{learner} \PY{o}{=} \PY{n}{ktrain}\PY{o}{.}\PY{n}{get\PYZus{}learner}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}data} \PY{o}{=} \PY{n}{train}\PY{p}{,} \PY{n}{val\PYZus{}data} \PY{o}{=} \PY{n}{val}\PY{p}{,} \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}
+\PY{n}{learner} \PY{o}{=} \PY{n}{ktrain}\PY{o}{.}\PY{n}{get\PYZus{}learner}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}data} \PY{o}{=} \PY{n}{train}\PY{p}{,} \PY{n}{val\PYZus{}data} \PY{o}{=} \PY{n}{val}\PY{p}{,} \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{6}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
+
+    We check if it still results in the same precision, recall and f1-score
+value as before saving the model.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{predictor}\PY{o}{.}\PY{n}{get\PYZus{}classes}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-[0, 1]
-\end{Verbatim}
-\end{tcolorbox}
-        
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{val}\PY{p}{)}\PY{p}{)}
-\PY{c+c1}{\PYZsh{} val = t.preprocess\PYZus{}test(x\PYZus{}test.tolist(), y\PYZus{}test.to\PYZus{}list())}
-\PY{n}{x\PYZus{}fake} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hooghelandt.nl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radboud.nl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cryptojedi.org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://ais.usvisa\PYZhy{}info.com/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{000directory.com.ar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{01\PYZhy{}telecharger.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1001tur.ru}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{02022222222.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ovenrenthighlightstablerefuse.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rowrepeatwakeassociatebox.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iucyyekyuksiewqo.org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{owwxxonkponu.co}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{myeqiiookymyokqs.org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-\PY{n}{y\PYZus{}fake} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
-\PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x\PYZus{}fake}\PY{p}{)}
-\PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}fake}\PY{p}{)}
-
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{)}
+\PY{n}{learner}\PY{o}{.}\PY{n}{validate}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-<class 'ktrain.text.preprocessor.TransformerDataset'>
-0                        hooghelandt.nl
-1                            radboud.nl
-2                        cryptojedi.org
-3          https://ais.usvisa-info.com/
-4                   000directory.com.ar
-5                    01-telecharger.com
-6                            1001tur.ru
-7                       02022222222.com
-8     ovenrenthighlightstablerefuse.com
-9         rowrepeatwakeassociatebox.com
-10                 iucyyekyuksiewqo.org
-11                      owwxxonkponu.co
-12                 myeqiiookymyokqs.org
-dtype: object
-0     1
-1     1
-2     1
-3     1
-4     1
-5     1
-6     1
-7     1
-8     0
-9     0
-10    0
-11    0
-12    0
-dtype: int64
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     50103
+           1       1.00      1.00      1.00     46089
+
+    accuracy                           1.00     96192
+   macro avg       1.00      1.00      1.00     96192
+weighted avg       1.00      1.00      1.00     96192
+
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+array([[49924,   179],
+       [  227, 45862]])
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Find the exact accuracy of our model
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{learner}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{print\PYZus{}report}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{save\PYZus{}path}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/DistilBERT\PYZus{}detector\PYZus{}classification.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/DistilBERT\_detector\_classification.csv
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+array([[49924,   179],
+       [  227, 45862]])
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Compute the ROC-AUC score
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{learner}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} predicts validation data by default}
+\PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{learner}\PY{o}{.}\PY{n}{ground\PYZus{}truth}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} yields true values from validation data by default}
+\PY{n}{score} \PY{o}{=} \PY{n}{roc\PYZus{}auc\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ROC\PYZhy{}AUC score: }\PY{l+s+si}{\PYZpc{}.6f}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{score}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ROC-AUC score: 0.999664
+
+    \end{Verbatim}
+
+    We create our validation dataset again so that we can evaluate the
+dataset on each type of DGA family.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{x\PYZus{}test}
+\PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{validation\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{benign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}} \PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+\PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{validation\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{benign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}} \PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{validation\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.7/dist-packages/pandas/core/indexing.py:1596:
+SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-
+docs/stable/user\_guide/indexing.html\#returning-a-view-versus-a-copy
+  self.obj[key] = \_infer\_fill\_value(value)
+/usr/local/lib/python3.7/dist-packages/pandas/core/indexing.py:1763:
+SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-
+docs/stable/user\_guide/indexing.html\#returning-a-view-versus-a-copy
+  isetter(loc, value)
+/usr/local/lib/python3.7/dist-packages/ipykernel\_launcher.py:4:
+SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-
+docs/stable/user\_guide/indexing.html\#returning-a-view-versus-a-copy
+  after removing the cwd from sys.path.
     \end{Verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{val} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{preprocess\PYZus{}test}\PY{p}{(}\PY{n}{x\PYZus{}fake}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}fake}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-\PY{n}{learner}\PY{o}{.}\PY{n}{validate}\PY{p}{(}\PY{n}{val\PYZus{}data}\PY{o}{=}\PY{n}{val}\PY{p}{,}\PY{n}{class\PYZus{}names}\PY{o}{=}\PY{n}{t}\PY{o}{.}\PY{n}{get\PYZus{}classes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{validation\PYZus{}dataset}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                                               domain         type  class
+226382                        seraphinaautenberry.net     suppobox      1
+352715  b18i35i55f12ova27e31c69f12i45ayeqcya37ltaq.ru      murofet      1
+48728                                         lef.org       benign      0
+13920                                     gapyear.com       benign      0
+15746                               damndelicious.net       benign      0
+{\ldots}                                               {\ldots}          {\ldots}    {\ldots}
+6056                                   livenation.com       benign      0
+347606                                    mlqxtil.biz  proslikefan      1
+12052                            mcafeewebadvisor.com       benign      0
+271122                         oijtwpbesajdnijsmm.com       ramnit      1
+269614                           kmcsdpavnstpjmgyb.cc      ranbyus      1
+
+[96192 rows x 3 columns]
+(96192, 3)
+    \end{Verbatim}
+
+    We evaluate every DGA family separately and save it to the disk.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{dga} \PY{o+ow}{in} \PY{n}{dga\PYZus{}domains}\PY{p}{:}
+  \PY{n}{x\PYZus{}test\PYZus{}per\PYZus{}type} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{validation\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{dga}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+  \PY{n}{y\PYZus{}test\PYZus{}per\PYZus{}type} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{validation\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{dga}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+  \PY{n}{validate\PYZus{}per\PYZus{}type} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{preprocess\PYZus{}test}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}per\PYZus{}type}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}per\PYZus{}type}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+  \PY{n}{learner}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{o}{=}\PY{n}{validate\PYZus{}per\PYZus{}type}\PY{p}{,}\PY{n}{print\PYZus{}report}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{save\PYZus{}path}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/classifaction\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{dga}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -961,152 +1109,679 @@ test sequence lengths:
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-              precision    recall  f1-score   support
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_ccleaner.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
 
-           0       0.00      0.00      0.00       5.0
-           1       0.00      0.00      0.00       8.0
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
 
-    accuracy                           0.00      13.0
-   macro avg       0.00      0.00      0.00      13.0
-weighted avg       0.00      0.00      0.00      13.0
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_corebot.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
 
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.7/dist-packages/sklearn/metrics/\_classification.py:1221:
+UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0
+in labels with no true samples. Use `zero\_division` parameter to control this
+behavior.
+  \_warn\_prf(average, modifier, msg\_start, len(result))
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_locky.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_pushdo.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_qadars.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_pizd.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_necurs.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_rovnix.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_simda.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_shiotob.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_suppobox.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_alureon.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_banjori.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_bedep.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_dircrypt.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_tinba.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_zeus-newgoz.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_chinad.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_cryptolocker.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_dyre.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_fobber.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_gozi.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_kraken.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_matsnu.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_murofet.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_nymaim.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_padcrypt.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_proslikefan.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_pykspa.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_qakbot.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_ramdo.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_ramnit.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_ranbyus.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_sisron.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_symmi.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_tempedreve.csv
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_vawtrak.csv
+    \end{Verbatim}
+
+    We evaluate the benign domains of our validation dataset and save it as
+well.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{x\PYZus{}test\PYZus{}benign} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{validation\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{benign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{y\PYZus{}test\PYZus{}benign} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{validation\PYZus{}dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{benign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+\PY{n}{validate\PYZus{}benign} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{preprocess\PYZus{}test}\PY{p}{(}\PY{n}{x\PYZus{}test\PYZus{}benign}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}benign}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n}{learner}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{o}{=}\PY{n}{validate\PYZus{}benign}\PY{p}{,}\PY{n}{print\PYZus{}report}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{save\PYZus{}path}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/classifaction\PYZus{}benign.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+preprocessing test{\ldots}
+language: en
+test sequence lengths:
+        mean : 1
+        95percentile : 1
+        99percentile : 1
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+<IPython.core.display.HTML object>
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.7/dist-packages/sklearn/metrics/\_classification.py:1221:
+UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0
+in labels with no true samples. Use `zero\_division` parameter to control this
+behavior.
+  \_warn\_prf(average, modifier, msg\_start, len(result))
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+classification report saved to:
+/content/drive/MyDrive/research/classifaction\_benign.csv
     \end{Verbatim}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{ }{\boxspacing}
+\prompt{Out}{outcolor}{19}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-array([[0, 5],
-       [8, 0]])
+array([[49924,   179],
+       [    0,     0]])
 \end{Verbatim}
 \end{tcolorbox}
         
-    Highlight the text of the validation sample to explain the prediction.
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k+kn}{import} \PY{n}{accuracy\PYZus{}score}
-\PY{n}{pred}\PY{o}{=}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-\PY{n}{acc}\PY{o}{=}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{pred}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{acc}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-0.9964227902236256
-    \end{Verbatim}
-
-    Predict on benign and dga domains that are not in our validation data or
-training data to check our classifier resilliance to new data.
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Benign domains: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hooghelandt.nl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radboud.nl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cryptojedi.org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://ais.usvisa\PYZhy{}info.com/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{000directory.com.ar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{01\PYZhy{}telecharger.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1001tur.ru}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{02022222222.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DGA domains: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ovenrenthighlightstablerefuse.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rowrepeatwakeassociatebox.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rowrepeatwakeassociatebox.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iucyyekyuksiewqo.org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{myeqiiookymyokqs.org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{owwxxonkponu.co}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-Benign domains:
-0
-0
-0
-0
-0
-0
-0
-0
-DGA domains:
-1
-1
-1
-1
-1
-1
-    \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{k}{if} \PY{n}{ENV\PYZus{}COLAB}\PY{p}{:}
-  \PY{n}{validation\PYZus{}data\PYZus{}location} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/drive/MyDrive/research/validation\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}
-\PY{k}{else}\PY{p}{:}
-  \PY{n}{validation\PYZus{}data\PYZus{}location} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{validation\PYZus{}data\PYZus{}location}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{500000}\PY{p}{,}\PY{l+m+mi}{1000000}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1500000}\PY{p}{,}\PY{l+m+mi}{1800000}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{conficker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cryptolocker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zeus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pushdo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rovnix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tinba}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matsnu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-\PY{n}{validation\PYZus{}dataset} \PY{o}{=} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{to\PYZus{}replace}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ramdo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-
-
-\PY{n+nb}{print}\PY{p}{(}\PY{n}{validation\PYZus{}dataset}\PY{p}{)}
-\PY{k}{for} \PY{n}{data} \PY{o+ow}{in} \PY{n}{validation\PYZus{}dataset}\PY{p}{:}
-  \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-                               domain  class
-0                          google.com      0
-1                        facebook.com      0
-2                         youtube.com      0
-3                           baidu.com      0
-4                           yahoo.com      0
-{\ldots}                               {\ldots}    {\ldots}
-1499995    byaaemigrationforthese.com      1
-1499996  wethesenecessarypursuing.com      1
-1499997   tyrantofonoverarmstrial.com      1
-1499998    absolutestagepartsthey.com      1
-1499999      themrepeatedsuchatof.com      1
-
-[1000000 rows x 2 columns]
-domain
-class
-    \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{false} \PY{o}{=} \PY{l+m+mi}{0}
-\PY{n}{true} \PY{o}{=} \PY{l+m+mi}{0}
-\PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{validation\PYZus{}dataset}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-  \PY{k}{if} \PY{n}{predictor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{domain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
-    \PY{n}{true} \PY{o}{=} \PY{n}{true} \PY{o}{+} \PY{l+m+mi}{1}
-  \PY{k}{else}\PY{p}{:}
-    \PY{n}{false} \PY{o}{=} \PY{n}{false} \PY{o}{+} \PY{l+m+mi}{1}
-\end{Verbatim}
-\end{tcolorbox}
-
 
     % Add a bibliography block to the postdoc
     
